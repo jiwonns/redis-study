@@ -1,6 +1,7 @@
 package com.example.demo.configuration.handler;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
@@ -17,6 +18,9 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @Configuration
 @EnableWebSocketMessageBroker // WebSocket 메시지 브로커를 활성화합니다.
 public class WebSocketStompBrokerConfig implements WebSocketMessageBrokerConfigurer {
+
+
+
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
         // 구독(sub) : 접두사로 시작하는 메시지를 브로커가 처리하도록 설정합니다.
@@ -56,4 +60,10 @@ public class WebSocketStompBrokerConfig implements WebSocketMessageBrokerConfigu
         registry.addEndpoint("/ws") // 순수 WS
                 .setAllowedOriginPatterns("*");
     }
+
+    // 사전 처리, JWT 토큰 검증 등에 필요
+//    @Override
+//    public void configureClientInboundChannel(ChannelRegistration registration) {
+//        registration.interceptors(stompHandler);
+//    }
 }
